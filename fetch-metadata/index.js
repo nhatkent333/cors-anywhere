@@ -5,6 +5,16 @@ const { JSDOM } = require('jsdom');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// Enable CORS
+app.use(cors());
+
+// Your other middleware and routes
+
+
 app.get('/fetch-metadata', async (req, res) => {
     const url = req.query.url;
     try {
