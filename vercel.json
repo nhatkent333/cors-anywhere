@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/fetch_metadata.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/fetch-metadata",
+      "dest": "api/fetch_metadata.py"
+    }
+  ]
+}
