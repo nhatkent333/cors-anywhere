@@ -10,8 +10,11 @@ def fetch_metadata():
     if not url:
         return jsonify({'error': 'URL is required'}), 400
 
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+
     try:
-        headers = {'User-Agent': 'Mozilla/5.0'}  # Adding a User-Agent header to avoid being blocked
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         
@@ -19,21 +22,6 @@ def fetch_metadata():
         title = soup.title.string if soup.title else 'No title available'
         
         return jsonify({'title': title})
-    except requests.exceptions.RequestException as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/proxy', methods=['GET'])
-def proxy():
-    url = request.args.get('url')
-    if not url:
-        return jsonify({'error': 'URL is required'}), 400
-
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        
-        return response.content, response.status_code, {'Content-Type': response.headers['Content-Type']}
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
 
